@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="MoS-VLA: A Vision-Language-Action Model with One-Shot Skill Adaptation - Ruihan Zhao, Tyler Ingebrand, Sandeep Chinchali, and Ufuk Topcu">
+  <meta name="description" content="MoS-VLA enables robots to adapt to new tasks using learned skill combinations, achieving fast, gradient-free adaptation across diverse environments and embodiments.">
+  <meta name="keywords" content="Vision-language-action (VLA), Mixture of Skills, Robot Learning, Skill Adaptation, Domain Transfer, Foundation Model, One-shot, few-shot, machine learning, AI">
+  <meta name="author" content="Ruihan Zhao, Tyler Ingebrand, Sandeep Chinchali, Ufuk Topcu">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="The University of Texas at Austin">
+  <meta property="og:title" content="MoS-VLA: A Vision-Language-Action Model with One-Shot Skill Adaptation">
+  <meta property="og:description" content="MoS-VLA enables robots to adapt to new tasks using learned skill combinations, achieving fast, gradient-free adaptation across diverse environments and embodiments.">
+  <meta property="og:url" content="https://PhilipZRH.github.io/mos-vla-dev/">
+  <meta property="og:image" content="https://PhilipZRH.github.io/mos-vla-dev/static/images/Mos-VLA-Cover-small.png">
+  <meta property="og:image:width" content="1007">
+  <meta property="og:image:height" content="323">
+  <meta property="og:image:alt" content="MoS-VLA: A Vision-Language-Action Model with One-Shot Skill Adaptation - MoS-VLA enables robots to adapt to new tasks using learned skill combinations, achieving fast, gradient-free adaptation across diverse environments and embodiments.">
+  <meta property="article:published_time" content="2025-10-02T00:00:00.000Z">
+  <meta property="article:author" content="Ruihan Zhao">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="Vision-language-action (VLA)">
+  <meta property="article:tag" content="Mixture of Skills">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@ruihanzhao">
+  <meta name="twitter:title" content="MoS-VLA: A Vision-Language-Action Model with One-Shot Skill Adaptation">
+  <meta name="twitter:description" content="MoS-VLA enables robots to adapt to new tasks using learned skill combinations, achieving fast, gradient-free adaptation across diverse environments and embodiments.">
+  <meta name="twitter:image" content="https://PhilipZRH.github.io/mos-vla-dev/static/images/Mos-VLA-Cover-small.png">
+  <meta name="twitter:image:alt" content="MoS-VLA: A Vision-Language-Action Model with One-Shot Skill Adaptation - MoS-VLA enables robots to adapt to new tasks using learned skill combinations, achieving fast, gradient-free adaptation across diverse environments and embodiments.">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="MoS-VLA: A Vision-Language-Action Model with One-Shot Skill Adaptation">
+  <meta name="citation_author" content="Zhao, Ruihan">
+  <meta name="citation_author" content="Ingebrand, Tyler">
+  <meta name="citation_publication_date" content="2025">
+  <meta name="citation_conference_title" content="Under Review">
+  <meta name="citation_pdf_url" content="https://PhilipZRH.github.io/mos-vla-dev/">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+
+  <title>MoS-VLA: A Vision-Language-Action Model with One-Shot Skill Adaptation - Ruihan Zhao, Tyler Ingebrand, Sandeep Chinchali, and Ufuk Topcu | Academic Research</title>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+  
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+  
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "MoS-VLA: A Vision-Language-Action Model with One-Shot Skill Adaptation",
+    "description": "MoS-VLA enables robots to adapt to new tasks using learned skill combinations, achieving fast, gradient-free adaptation across diverse environments and embodiments.",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Ruihan Zhao",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of Texas at Austin"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Tyler Ingebrand",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of Texas at Austin"
+        }
+      },
+        {
+        "@type": "Person",
+        "name": "Sandeep Chinchali",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of Texas at Austin"
+        }
+      },
+        {
+        "@type": "Person",
+        "name": "Ufuk Topcu",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of Texas at Austin"
+        }
+      }
+    ],
+    "datePublished": "2025-09-25",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Under Review"
+    },
+    "url": "https://PhilipZRH.github.io/mos-vla-dev/",
+    "image": "https://PhilipZRH.github.io/mos-vla-dev//static/images/Mos-VLA-Cover-small.png",
+    "keywords": ["Vision-language-action (VLA)", "Mixture of Skills", "Robot Learning", "Skill Adaptation", "Domain Transfer", "Foundation Model", "One-shot", "few-shot", "machine learning", "AI"],
+    "abstract": " Vision-Language-Action (VLA) models trained on large robot datasets promise general-purpose, robust control across diverse domains and embodiments. However, existing approaches often fail out-of-the-box when deployed in novel environments, embodiments, or tasks. We introduce Mixture of Skills VLA (MoS-VLA), a framework that represents robot manipulation policies as linear combinations of a finite set of learned basis functions. During pretraining, MoS-VLA jointly learns these basis functions across datasets from the Open X-Embodiment project, producing a structured skill space. At test time, adapting to a new task requires only a single expert demonstration. The corresponding skill representation is then inferred via a lightweight convex optimization problem that minimizes the L1 action error, without requiring gradient updates. This gradient-free adaptation incurs minimal overhead while enabling rapid instantiation of new skills. Empirically, MoS-VLA achieves lower action-prediction error on five out of five unseen datasets and succeeds in both simulation and real-robot tasks where a pretrained VLA model fails outright.",
+    "citation": "@article{Mos-VLA2025,\ntitle={MoS-VLA: A Vision-Language-Action Model with One-Shot Skill Adaptation},\nauthor={Ruihan Zhao and Tyler Ingebrand and Sandeep Chinchali and Ufuk Topcu},\njournal={Under Review},\nyear={2025},\n}",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "mainEntity": {
+      "@type": "WebPage",
+      "@id": "https://PhilipZRH.github.io/mos-vla-dev/"
+    },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Robotics"
+      },
+      {
+        "@type": "Thing", 
+        "name": "Mixture of Skills"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Website/Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "The University of Texas at Austin",
+    "url": "https://www.utexas.edu/",
+    "logo": "https://PhilipZRH.github.io/mos-vla-dev/static/images/favicon.ico",
+    "sameAs": [
+      "https://twitter.com/RuihanZhao",
+      "https://github.com/PhilipZRH"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- More Works Dropdown -->
+  <div class="more-works-container">
+    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
+      <i class="fas fa-flask"></i>
+      More Works
+      <i class="fas fa-chevron-down dropdown-arrow"></i>
+    </button>
+    <div class="more-works-dropdown" id="moreWorksDropdown">
+      <div class="dropdown-header">
+        <h4>More Works from Our Lab</h4>
+        <button class="close-btn" onclick="toggleMoreWorks()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="works-list">
+        <a href="https://arxiv.org/abs/2501.18373" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>Function Encoders: A Principled Approach to Transfer Learning in Hilbert Spaces</h5>
+            <p>We introduce a geometric framework for transfer learning in Hilbert spaces, defining three types of inductive transfer: interpolation within the convex hull, extrapolation to the linear span, and extrapolation beyond the span. We then make several practical and theoretical improvements to the recently introduced function encoder algorithm, and demonstrate state-of-the-art performance across four diverse benchmark tasks.</p>
+            <span class="work-venue">ICML 2025</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <a href="https://philipzrh.com/lane/" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>LaNE: Accelerating Visual Sparse-Reward Learning with Latent Nearest-Demonstration-Guided Explorations​</h5>
+            <p>LaNE is a data-efficient reinforcement learning (RL) method to solve sparse-reward tasks from image observations. First, LaNE builds on the pre-trained DINOv2 feature extractor to learn an embedding space for forward prediction. Next, it rewards the agent for exploring near the demonstrations, quantified by quadratic control costs in the embedding space. Our method achieves state-of-the-art sample efficiency in Robosuite simulation and enables under-an-hour RL training from scratch on a Franka Panda robot, using only a few demonstrations.</p>
+            <span class="work-venue">CORL 2024</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+<!--        <a href="https://arxiv.org/abs/PAPER_ID_3" class="work-item" target="_blank">-->
+<!--          <div class="work-info">-->
+<!--            <h5>Paper Title 3</h5>-->
+<!--            <p>Brief description of the work and its main contribution.</p>-->
+<!--            <span class="work-venue">Conference/Journal 2023</span>-->
+<!--          </div>-->
+<!--          <i class="fas fa-external-link-alt"></i>-->
+<!--        </a>-->
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">MoS-VLA: A Vision-Language-Action Model with One-Shot Skill Adaptation</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://philipzrh.com/" target="_blank">Ruihan Zhao</a><sup>*</sup>,</span>
+                <span class="author-block">
+                  <a href="https://tyler-ingebrand.github.io/" target="_blank">Tyler Ingebrand</a><sup>*</sup>,</span>
+                  <span class="author-block">
+                    <a href="https://www.ece.utexas.edu/people/faculty/sandeep-chinchali" target="_blank">Sandeep Chinchali</a>, </span>
+                    <span class="author-block">
+                      <a href="https://www.ae.utexas.edu/people/faculty/faculty-directory/topcu" target="_blank">Ufuk Topcu</a> </span>
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block">The University of Texas at Austin<br>Under Review, 2025</span>
+                    <span class="eql-cntrb"><small><br><sup>*</sup>Equal Contribution</small></span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                         <!-- TODO: Update with your arXiv paper ID -->
+                      <span class="link-block">
+                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                  <!-- TODO: Replace with your GitHub repository URL -->
+                  <span class="link-block">
+                    <a href="https://github.com/PhilipZRH/mos-vla-dev" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <!-- TODO: Update with your arXiv paper ID -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser video--> <!--TODO -->
+<!--<section class="hero teaser">-->
+<!--  <div class="container is-max-desktop">-->
+<!--    <div class="hero-body">-->
+<!--      &lt;!&ndash; TODO: Replace with your teaser video &ndash;&gt;-->
+<!--      <video poster="" id="tree" autoplay controls muted loop height="100%" preload="metadata">-->
+<!--        &lt;!&ndash; TODO: Add your video file path here &ndash;&gt;-->
+<!--        <source src="static/videos/banner_video.mp4" type="video/mp4">-->
+<!--      </video>-->
+<!--      &lt;!&ndash; TODO: Replace with your video description &ndash;&gt;-->
+<!--      <h2 class="subtitle has-text-centered">-->
+<!--        Our method allows a vision-language-action model to adapt to new domains in only a few seconds using a single expert demonstration.-->
+<!--      </h2>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+<!-- End teaser video -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+Vision-Language-Action (VLA) models trained on large robot datasets promise general-purpose, robust control across diverse domains and embodiments. However, existing approaches often fail out-of-the-box when deployed in novel environments, embodiments, or tasks. We introduce Mixture of Skills VLA (MoS-VLA), a framework that represents robot manipulation policies as linear combinations of a finite set of learned basis functions. During pretraining, MoS-VLA jointly learns these basis functions across datasets from the Open X-Embodiment project, producing a structured skill space. At test time, adapting to a new task requires only a single expert demonstration. The corresponding skill representation is then inferred via a lightweight convex optimization problem that minimizes the L1 action error, without requiring gradient updates. This gradient-free adaptation incurs minimal overhead while enabling rapid instantiation of new skills. Empirically, MoS-VLA achieves lower action-prediction error on five out of five unseen datasets and succeeds in both simulation and real-robot tasks where a pretrained VLA model fails outright.          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Image -->
+<section class="hero is-small">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">The Selling Point</h2>
+          <figure class="image">
+            <img src="static/images/Mos-VLA-Cover.png"
+                 alt="Our method uses one expert demonstration to calibrate the VLA model to a new setting. This process takes only a few seconds."
+                 loading="lazy"
+                 style="width:100%; height:auto;">
+          </figure>
+          <div class="content has-text-justified">
+          <p class="mt-3">
+            Our model adapts to new lab settings using only one expert demonstration.
+            To do so, we solve a simple least absolute error optimization problem and project the expert demonstration onto a set of learned basis functions.
+            This process takes only a few seconds even on a RTX 3090, and does not require any gradient updates.
+            Then, we execute the adapted policy in the new environment.
+            This process yields a model capable of deploying in new environments with minimal overhead.
+          </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End image -->
+
+
+<!-- Image -->
+<section class="hero is-small is-light">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">The Architecture</h2>
+          <figure class="image">
+            <img src="static/images/Mos-VLA-Arch.png"
+                 alt="Our architecture simply adds k-output heads to any VLA model, where k is the number of basis functions. The adapted policy is a linear combination of these basis functions."
+                 loading="lazy"
+                 style="width:100%; height:auto;">
+          </figure>
+          <div class="content has-text-justified">
+          <p class="mt-3">
+We adapt OpenVLA by introducing k basis action heads, each acting as a basis function conditioned on the task description and image observation.
+The expert policy for each context (domain) is then represented as a linear combination of these basis functions, where the coefficients are calibrated from a single expert demonstration.
+This calibration step involves solving a simple linear program corresponding to least absolute error minimization.
+Crucially, this process does not require any gradient updates, making it extremely fast.
+
+
+          </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End image -->
+
+
+    <!-- Image -->
+<section class="hero is-small">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">The Results</h2>
+          <figure class="image">
+            <img src="static/images/OpenVLA_FE_comparison.png"
+                 alt="Our architecture simply adds k-output heads to any VLA model, where k is the number of basis functions. The adapted policy is a linear combination of these basis functions."
+                 loading="lazy"
+                 style="width:100%; height:auto;">
+          </figure>
+          <div class="content has-text-justified">
+          <p class="mt-3">
+            By calibrating our model on one expert trajectory, we greatly outperform the baseline OpenVLA model. On 18/27 in-distribution datasets and on all 5 out-of-distribution datasets, we achieve lower mean absolute error.
+            This performance is not just limited to prediction accuracy. In both simulated and on-robot experiments, we find that our model achieves a 70% to 100% success rate while the baseline OpenVLA model fails outright.
+          </p>
+          <figure class="image">
+            <img src="static/images/table.png"
+                 alt="In simulated and on-robot experiments, our model achieves 70-100% accuracy while the base OpenVLA model fails outright."
+                 loading="lazy"
+                 style="width:100%; height:auto;">
+          </figure>
+          <figure class="image">
+            <img src="static/images/qual.png"
+                 alt="We use five experiments: Simulated block lifting, simulated door opening, on-robot goal reaching, on-robot block lifting, and on-robot pen insertion."
+                 loading="lazy"
+                 style="width:100%; height:auto;">
+          </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End image -->
+
+
+<!-- Youtube video -->
+<!--<section class="hero is-small is-light">-->
+<!--  <div class="hero-body">-->
+<!--    <div class="container">-->
+<!--      &lt;!&ndash; Paper video. &ndash;&gt;-->
+<!--      <h2 class="title is-3">Video Presentation</h2>-->
+<!--      <div class="columns is-centered has-text-centered">-->
+<!--        <div class="column is-four-fifths">-->
+<!--          -->
+<!--          <div class="publication-video">-->
+<!--            &lt;!&ndash; TODO: Replace with your YouTube video ID &ndash;&gt;-->
+<!--            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+<!-- End youtube video -->
+
+
+<!-- Video carousel -->
+<!--<section class="hero is-small">-->
+<!--  <div class="hero-body">-->
+<!--    <div class="container">-->
+<!--      <h2 class="title is-3">Another Carousel</h2>-->
+<!--      <div id="results-carousel" class="carousel results-carousel">-->
+<!--        <div class="item item-video1">-->
+<!--          &lt;!&ndash; TODO: Add poster image for better preview &ndash;&gt;-->
+<!--          <video poster="" id="video1" controls muted loop height="100%" preload="metadata">-->
+<!--            &lt;!&ndash; Your video file here &ndash;&gt;-->
+<!--            <source src="static/videos/carousel1.mp4" type="video/mp4">-->
+<!--          </video>-->
+<!--        </div>-->
+<!--        <div class="item item-video2">-->
+<!--          &lt;!&ndash; TODO: Add poster image for better preview &ndash;&gt;-->
+<!--          <video poster="" id="video2" controls muted loop height="100%" preload="metadata">-->
+<!--            &lt;!&ndash; Your video file here &ndash;&gt;-->
+<!--            <source src="static/videos/carousel2.mp4" type="video/mp4">-->
+<!--          </video>-->
+<!--        </div>-->
+<!--        <div class="item item-video3">-->
+<!--          &lt;!&ndash; TODO: Add poster image for better preview &ndash;&gt;-->
+<!--          <video poster="" id="video3" controls muted loop height="100%" preload="metadata">-->
+<!--            &lt;!&ndash; Your video file here &ndash;&gt;-->
+<!--            <source src="static/videos/carousel3.mp4" type="video/mp4">-->
+<!--          </video>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+<!-- End video carousel -->
+
+
+
+
+
+
+<!-- Paper poster -->
+<!--<section class="hero is-small is-light">-->
+<!--  <div class="hero-body">-->
+<!--    <div class="container">-->
+<!--      <h2 class="title">Poster</h2>-->
+
+<!--      &lt;!&ndash; TODO: Replace with your poster PDF &ndash;&gt;-->
+<!--      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">-->
+<!--          </iframe>-->
+<!--        -->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </section>-->
+<!--End paper poster -->
+
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@article{Mos-VLA2025,
+        title={MoS-VLA: A Vision-Language-Action Model with One-Shot Skill Adaptation},
+        author={Ruihan Zhao and Tyler Ingebrand and Sandeep Chinchali and Ufuk Topcu},
+        journal={Under Review},
+        year={2025}
+}
+      </code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
